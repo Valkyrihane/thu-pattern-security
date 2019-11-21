@@ -1,16 +1,17 @@
 # thu-pattern-security
-Tsinghua combinatorics project
 
-![](/home/valky/me/github/thu-pattern-security/pattern.png)
+![ci](https://github.com/Valkyrihane/thu-pattern-security/workflows/CI/badge.svg)
+
+Tsinghua combinatorics project 
+
+<img src="./pattern.png" alt="pattern" style="zoom: 67%;" />
 
 ### The goal
 
 `pattern-security` computes the number of possible android pattern password, from one digit to another, with a given length. For example, going from the digit **1** to the digit **3** with a length of **3**, is doable in five ways: `1 2 3`, `1 4 3`, `1 5 3`, `1 6 3` and `1 8 3`
 
 <p align="center">1 - 2 - 3</p>
-
 <p align="center">4 - 5 - 6</p>
-
 <p align="center">7 - 8 - 9</p>
 
 ## Dependencies
