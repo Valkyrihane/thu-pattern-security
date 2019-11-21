@@ -1,0 +1,59 @@
+#!/usr/bin/python3
+import argparse
+import sys
+
+helper_tab = [
+    ('start', 'Pattern starting digit'),
+    ('end', 'Pattern ending digit'),
+    ('length', 'Pattern length'),
+  ]
+
+bridges = {
+    1: {3: 2, 7: 4, 9: 5},
+    2: {8: 5},
+    3: {1: 2, 7: 5, 9: 6},
+    4: {6: 5},
+    5: {},
+    6: {4: 5},
+    7: {1: 4, 3: 5, 9: 8},
+    8: {2: 5},
+    9: {1: 5, 3: 6, 7: 8},
+}
+
+def is_allowed(a, b, paths):
+  if (a == b or b not in paths): return False
+  bridge = bridges[a].get(b, None)
+  if (bridge and bridge in paths):
+    return False
+  return True
+
+def find_paths(a, b, l, paths):
+  if (l == 0 and a == b):
+    return 1
+  if ((l == 0 and a != b) or len(paths) == 0):
+    return 0
+  res = 0
+  for path in paths:
+    if is_allowed(a, path, paths):
+      tmp_paths = paths.copy()
+      tmp_paths.remove(path)
+      res += find_paths(path, b, l - 1, tmp_paths)
+  return (res)
+
+def compute(a, b, l):
+  if (a == b):
+    print('Start and End digit can not be equal', file=sys.stderr)
+    return 0
+  paths = list(range(1, 10))
+  paths.remove(a)
+  res = find_paths(a, b, l - 1, paths)
+  return (res)
+
+if __name__ == '__main__':
+  parser = argparse.ArgumentParser(description='Android pattern security')
+  for name, desc in helper_tab:
+    parser.add_argument(
+        name, metavar='{} [1-9]'.format(name),
+        choices=range(1, 10), type=int, help=desc)
+  args = vars(parser.parse_args()).values()
+  print(compute(*args))
